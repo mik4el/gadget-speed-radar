@@ -12,9 +12,8 @@ void loop() {
   sensorValue = analogRead(analogInPin);
 
   // print the results to the serial monitor:
-  Serial.print("hb100 = ");
   Serial.print(sensorValue);
-  Serial.println("");
+  Serial.println();
 
   // wait 2 milliseconds before the next loop
   // for the analog-to-digital converter to settle
