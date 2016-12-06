@@ -27,6 +27,7 @@ void setup() {
 double freq_sum = 0;
 int freq_count = 0;
 unsigned long time_since_reading = 0;
+float max_speed = 0.0;
 
 void loop() {
   if (FreqMeasure.available()) {
@@ -38,13 +39,18 @@ void loop() {
     unsigned long currentMillis = millis();
 
     // print speed when enough samples
-    if (freq_count > 30) {
+    if (freq_count > 10) {
       float frequency = FreqMeasure.countToFrequency(freq_sum / freq_count);
       lcd.setCursor (0,1);        // go to start of 2nd line
       float speed = frequency/DOPPLER_SHIFT_CONSTANT;
       if (speed > MINIMUM_SPEED) {
+        if (speed > max_speed) {
+          max_speed = speed; 
+        }
         lcd.print(speed);
-        lcd.print(" km/h     ");      
+        lcd.print(" (");      
+        lcd.print(max_speed);
+        lcd.print(") km/h");      
         time_since_reading = currentMillis;
       } 
       freq_sum = 0;
@@ -54,8 +60,9 @@ void loop() {
     // show no speed if no new reading in last 5s
     if (currentMillis - time_since_reading >= CLEAN_SCREEN_INTERVAL) {
       lcd.setCursor (0,1);        // go to start of 2nd line
-      lcd.print("...        ");
-      time_since_reading = currentMillis;      
+      lcd.print("...             ");
+      time_since_reading = currentMillis;
+      max_speed = 0.0;      
     }
     
   }
