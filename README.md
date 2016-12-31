@@ -1,5 +1,5 @@
 # Gadget-Speed-Radar
-Measure and output speed of objects using the HB100. Tested two iterations of amps for amplifiying and conditioning the HB100 signal.
+Measure and output speed of objects using the HB100. Tested two iterations of amps for amplifying and conditioning the HB100 signal.
 
 ## Iteration 1
 An amp based on the design suggested in the application note p.5 (http://www.limpkin.fr/public/HB100/HB100_Microwave_Sensor_Application_Note.pdf) with the addition of an op-amp comparator to generate a square wave signal that a MCU like an Arduino easily can detect. The schema is available in `hardware/rev1`.
